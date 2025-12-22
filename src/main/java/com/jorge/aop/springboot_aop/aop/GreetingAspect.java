@@ -17,7 +17,10 @@ public class GreetingAspect {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Before("execution(* com.jorge.aop.springboot_aop.services.GreetingService.*(..))")
+    @Pointcut("execution(* com.jorge.aop.springboot_aop.services.GreetingService.*(..))")
+    private void greetingLoggerPointCut() {}
+
+    @Before("greetingLoggerPointCut()")
     public void loggerBefore(JoinPoint joinPoint){
 
         String method = joinPoint.getSignature().getName();
@@ -25,7 +28,7 @@ public class GreetingAspect {
         logger.info("Antes: " + method + " con los argumentos " + args);
     }
 
-    @After("execution(* com.jorge.aop.springboot_aop.services.GreetingService.*(..))")
+    @After("greetingLoggerPointCut()")
     public void loggerAfter(JoinPoint joinPoint){
 
         String method = joinPoint.getSignature().getName();
@@ -33,7 +36,7 @@ public class GreetingAspect {
         logger.info("Después: " + method + " con los argumentos " + args);
     }
 
-    @AfterReturning("execution(* com.jorge.aop.springboot_aop.services.GreetingService.*(..))")
+    @AfterReturning("greetingLoggerPointCut()")
     public void loggerAfterReturning(JoinPoint joinPoint){
 
         String method = joinPoint.getSignature().getName();
@@ -41,7 +44,7 @@ public class GreetingAspect {
         logger.info("Después de retornar: " + method + " con los argumentos " + args);
     }
 
-    @AfterThrowing("execution(* com.jorge.aop.springboot_aop.services.GreetingService.*(..))")
+    @AfterThrowing("greetingLoggerPointCut()")
     public void loggerAfterThrowing(JoinPoint joinPoint){
 
         String method = joinPoint.getSignature().getName();
@@ -49,7 +52,7 @@ public class GreetingAspect {
         logger.info("Después de lanzar la excepción: " + method + " con los argumentos " + args);
     }
 
-    @Around("execution(* com.jorge.aop.springboot_aop.services.GreetingService.*(..))")
+    @Around("greetingLoggerPointCut()")
     public Object loggerAround(ProceedingJoinPoint joinPoint) throws Throwable{
 
         String method = joinPoint.getSignature().getName();
