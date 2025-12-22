@@ -33,3 +33,4 @@ public class GreetingFooAspect {
         logger.info("Después primero: " + method + " invocado con los parametros " + args);
     }
 }
+q
